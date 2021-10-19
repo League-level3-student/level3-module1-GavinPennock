@@ -16,6 +16,7 @@ public class _02_LogSearch implements ActionListener {
 	JButton button = new JButton("Add Entry");
 	JButton button0 = new JButton("Serch By ID");
 	JButton button1 = new JButton("View List");
+	JButton button2 = new JButton("Remove Entry");
 
 	public void start() {
 		frame.setVisible(true);
@@ -23,9 +24,11 @@ public class _02_LogSearch implements ActionListener {
 		panel.add(button);
 		panel.add(button0);
 		panel.add(button1);
+		panel.add(button2);
 		button.addActionListener(this);
 		button0.addActionListener(this);
 		button1.addActionListener(this);
+		button2.addActionListener(this);
 
 	}
 
@@ -66,12 +69,32 @@ public class _02_LogSearch implements ActionListener {
 			System.out.println("Search By ID");
 			String IDSearch = JOptionPane.showInputDialog("Enter ID");
 			int idSearch = Integer.parseInt(IDSearch);
-			JOptionPane.showMessageDialog(null, hashmap.get(idSearch));
+			if (hashmap.containsKey(idSearch)) {
+				JOptionPane.showMessageDialog(null, hashmap.get(idSearch));
+			} else {
+				JOptionPane.showMessageDialog(null, "this ID does not exist");
+			}
+
 		} else if (buttonClicked == button1) {
-			System.out.println("Veiw List");
-			JOptionPane.showMessageDialog(null, "");
+			String IDs = "";
+			String IDset;
+			for (int ID : hashmap.keySet()) {
+				IDset = ("ID: " + ID + " Name: " + hashmap.get(ID));
+				IDs = IDs + "\n" + IDset;
+			}
+			JOptionPane.showMessageDialog(null, IDs);
+			System.out.println("View List");
+
+		} else if (buttonClicked == button2) {
+			String removeid=JOptionPane.showInputDialog("Enter an ID you want to remove");
+			int removeID=Integer.parseInt(removeid);
+			if (hashmap.containsKey(removeID)) {
+				hashmap.remove(removeID);
+			}else {
+				JOptionPane.showMessageDialog(null,"This ID doesn't exist");
+			}
 		}
-//
+
 	}
 
 }
